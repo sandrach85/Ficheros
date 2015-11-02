@@ -37,7 +37,8 @@ public class FicherosActivity extends AppCompatActivity {
     Button botonAniadir;
     TextView contenidoFichero;
     CheckBox checkTarjetaSD;
-    List opcionGuardado;
+    Boolean checkeado;
+    //List opcionGuardado;
 
 
     @Override
@@ -52,6 +53,7 @@ public class FicherosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficheros);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        this.checkeado = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("tajetaSD", true);
        // boolean tarjetaSDpref = sharedPref.getBoolean("tajetaSD", true);
 
         //SimpleAdapter adapter = new SimpleAdapter(this, android.R.layout.simple_list_item_checked,tarjetaSDpref);
@@ -60,12 +62,17 @@ public class FicherosActivity extends AppCompatActivity {
         botonAniadir     = (Button)   findViewById(R.id.botonAniadir);
         contenidoFichero = (TextView) findViewById(R.id.contenidoFichero);
         checkTarjetaSD   = (CheckBox) findViewById(R.id.cbTarjetaSD);
-        opcionGuardado   = (List) findViewById(R.id.opcionGuardado);
+        //opcionGuardado   = (List) findViewById(R.id.opcionGuardado);
 
         /** SD card **/
         // RUTA_FICHERO = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NOMBRE_FICHERO;
         RUTA_FICHERO = getExternalFilesDir(null) + "/" + NOMBRE_FICHERO;
 
+        if (checkeado){
+            Log.i("Boton check", "seleccionado");
+        }else{
+            Log.i("Boton check", "NO seleccionado");
+        }
     }
 
     /**
@@ -180,6 +187,8 @@ public class FicherosActivity extends AppCompatActivity {
         //return true;
         return super.onCreateOptionsMenu(menu);
     }
+
+
     public void GuardarPreferencias(){
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         boolean tarjetaSDpref = sharedPref.getBoolean("tajetaSD", true);

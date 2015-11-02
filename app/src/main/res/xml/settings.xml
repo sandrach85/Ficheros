@@ -9,7 +9,8 @@
             android:id="@+id/opcionGuardado"
             android:key="nombreSeccion"
             android:summary="@string/mensajeSeccion"
-            android:title="@string/nombreSeccion" />
+            android:title="@string/nombreSeccion"
+            />
 
     </PreferenceCategory>
 
