@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/nombreSeccion"
+        android:key="pref_almacen">
+
+        <CheckBoxPreference
+            android:id="@+id/cbTarjetaSD"
+            android:defaultValue="true"
+            android:key="tajetaSD"
+            android:summary="@string/mensajeOpcionPreferencias"
+            android:title="@string/opcionPreferencias" />
+
+
+        <ListPreference
+            android:defaultValue="@string/nombrePorDefecto"
+            android:key="nombreArchivo"
+            android:summary="@string/mesajeNombreFichero"
+            android:title="@string/nombreFichero" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

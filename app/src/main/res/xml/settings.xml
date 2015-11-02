@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/actionPreferencias"
+        android:key="pref_gen">
+
+        <ListPreference
+            android:id="@+id/opcionGuardado"
+            android:key="nombreSeccion"
+            android:summary="@string/mensajeSeccion"
+            android:title="@string/nombreSeccion" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
