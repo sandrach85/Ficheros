@@ -2,17 +2,20 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
     <header
         android:fragment="es.upm.miw.ficheros.SettingsActivity$SettingsFragment"
-        android:title="@string/actionPreferencias"
-        android:summary="Preferencias Generales" >
+        android:title="@string/actionPreferencias">
+        <!--android:summary="Preferencias Generales" >-->
         <extra
             android:name="settings"
-            android:value="generales"/>
+            android:value="settings" />
     </header>
     <header
         android:fragment="es.upm.miw.ficheros.SettingsActivity$SettingsFragment"
-        android:title="@string/nombreSeccion"
-        android:summary="Datos de Almacenaje" >
+        android:summary="@string/mensajeSeccion"
+        android:title="@string/nombreSeccion">
+        <!--android:summary="Datos de Almacenaje"-->
 
-        <extra android:name="settings" android:value="settings_almac" />
+        <extra
+            android:name="settings"
+            android:value="settings_almac" />
     </header>
 </preference-headers>

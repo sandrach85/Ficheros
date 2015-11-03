@@ -13,7 +13,7 @@
             android:title="@string/opcionPreferencias" />
 
 
-        <ListPreference
+        <EditTextPreference
             android:defaultValue="@string/nombrePorDefecto"
             android:key="nombreArchivo"
             android:summary="@string/mesajeNombreFichero"
