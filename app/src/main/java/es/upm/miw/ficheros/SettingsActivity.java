@@ -68,9 +68,9 @@ public class SettingsActivity extends PreferenceActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
             // Actualizar el resumen de la preferencia
-            if (key.equals("numArticulos")) {
+            if (key.equals("tajetaSD")) {
                 Preference preference = findPreference(key);
-                preference.setSummary(sharedPreferences.getString(key, ""));
+                preference.setSummary(sharedPreferences.getString(key, "false"));
             }
         }
 
