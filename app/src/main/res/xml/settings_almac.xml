@@ -2,8 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/nombreSeccion"
-        android:key="pref_almacen">
+        android:key="pref_almacen"
+        android:title="@string/nombreSeccion">
 
         <CheckBoxPreference
             android:id="@+id/cbTarjetaSD"

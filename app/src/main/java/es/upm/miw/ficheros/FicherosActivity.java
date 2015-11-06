@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.InputStreamReader;
@@ -24,7 +25,7 @@ import java.io.InputStreamReader;
 public class FicherosActivity extends AppCompatActivity {
 
     String NOMBRE_FICHERO;
-    private String RUTA_FICHERO;         /** SD card **/
+    private String RUTA_FICHERO;
     EditText lineaTexto;
     Button botonAniadir;
     TextView contenidoFichero;
@@ -43,34 +44,27 @@ public class FicherosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficheros);
         this.checkeado = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("tajetaSD", true);
-        this.RUTA_FICHERO = PreferenceManager.getDefaultSharedPreferences(this).getString("nombreArchivo","mi_fichero_miw.txt");
-
-        lineaTexto       = (EditText) findViewById(R.id.textoIntroducido);
-        botonAniadir     = (Button)   findViewById(R.id.botonAniadir);
-        contenidoFichero = (TextView) findViewById(R.id.contenidoFichero);
-
-        /** SD card **/
-        // RUTA_FICHERO = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + NOMBRE_FICHERO;
+        this.NOMBRE_FICHERO = PreferenceManager.getDefaultSharedPreferences(this).getString("nombreArchivo", "mi_fichero_miw.txt");
         RUTA_FICHERO = getExternalFilesDir(null) + "/" + NOMBRE_FICHERO;
+
+        lineaTexto = (EditText) findViewById(R.id.textoIntroducido);
+        botonAniadir = (Button) findViewById(R.id.botonAniadir);
+        contenidoFichero = (TextView) findViewById(R.id.contenidoFichero);
 
     }
 
-    public void actionAniadir(View v){
-        if (checkeado){
+    public void accionAniadir(View v) {
+        if (checkeado) {
             Log.i("Boton check", "seleccionado");
             accionAniadirSD(v);
-        }else{
+        } else {
             Log.i("Boton check", "NO seleccionado");
             accionAniadirInterna(v);
+            Toast.makeText(this, "Texto añadido a TELEFONO", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, RUTA_FICHERO, Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * Al pulsar el botón añadir -> añadir al fichero.
-     * Después de añadir -> mostrarContenido()
-     *
-     * @param v Botón añadir
-     */
     public void accionAniadirSD(View v) {
         String estadoTarjetaSD = Environment.getExternalStorageState();
         try {
@@ -86,41 +80,32 @@ public class FicherosActivity extends AppCompatActivity {
             Log.e("FILE I/O", "ERROR: " + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     public void accionAniadirInterna(View v) {
 
         String texto = lineaTexto.getText().toString();
-        Log.i("TEXTO PARA AÑADIR", texto);
+        // Log.i("TEXTO PARA AÑADIR", texto);
         try {
-            FileOutputStream fos = openFileOutput("FICHERO", Context.MODE_APPEND);
+            FileOutputStream fos = openFileOutput(NOMBRE_FICHERO, Context.MODE_APPEND);
             fos.write(texto.getBytes());
+            fos.write('\n');
             fos.close();
+            Log.i("Texto", texto);
             mostrarContenido(contenidoFichero);
-            contenidoFichero.callOnClick();
         } catch (Exception e) {
-            Log.e("ERROR", e.getMessage());
+            Log.e("FILE I/O", "ERROR: " + e.getMessage());
         }
 
     }
 
-    /**
-     * Se pulsa sobre el textview -> mostrar contenido del fichero
-     * Si está vacío -> mostrar un Toast
-     *
-     * @param textviewContenidoFichero TextView contenido del fichero
-     */
-
-    public void mostrarContenido(View textviewContenidoFichero){
-        if (checkeado){
+    public void mostrarContenido(View textviewContenidoFichero) {
+        if (checkeado) {
             Log.i("Boton check", "seleccionado");
             mostrarContenidoSD(textviewContenidoFichero);
-            //accionAniadirSD(textviewContenidoFichero);
-        }else{
+        } else {
             Log.i("Boton check", "NO seleccionado");
             mostrarContenidoInterna(textviewContenidoFichero);
-            //accionAniadirInterna(textviewContenidoFichero);
         }
     }
 
@@ -151,12 +136,10 @@ public class FicherosActivity extends AppCompatActivity {
         }
     }
 
-    public void mostrarContenidoInterna(View textviewContenidoFichero){
+    public void mostrarContenidoInterna(View textviewContenidoFichero) {
         boolean hayContenido = false;
-        //StringBuffer datax = new StringBuffer("");
         contenidoFichero.setText("");
-
-        try{
+        try {
             BufferedReader fin = new BufferedReader(new InputStreamReader(openFileInput(NOMBRE_FICHERO)));
             String linea = fin.readLine();
             while (linea != null) {
@@ -166,20 +149,7 @@ public class FicherosActivity extends AppCompatActivity {
             }
             fin.close();
             Log.i("FICHERO", "Click contenido Fichero -> MOSTRAR fichero");
-
-
-           /* FileInputStream fis = openFileInput("FICHERO");
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            String readString = bufferedReader.readLine();
-            while (readString != null) {
-                hayContenido = true;
-                datax.append(readString + '\n');
-                readString = bufferedReader.readLine();
-            }
-            fis.close();
-            contenidoFichero.append(datax.toString());*/
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.e("FILE I/O", "ERROR: " + e.getMessage());
             e.printStackTrace();
         }
@@ -189,31 +159,16 @@ public class FicherosActivity extends AppCompatActivity {
     }
 
     @Override
-    /**
-     * Añade el menú con la opcion de vaciar el fichero
-     */
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-
-        //menu.add(Menu.NONE, 1, Menu.NONE, R.string.opcionVaciar)
-        //        .setIcon(android.R.drawable.ic_menu_delete); // sólo visible android < 3.0
-
-        // Inflador del menú: añade elementos a la action bar
         getMenuInflater().inflate(R.menu.menu, menu);
-
-
-        //Preferencias
-        //menu.add(Menu.NONE,1,Menu.NONE, R.string.actionPreferencias);
-
         return true;
-       //return super.onCreateOptionsMenu(menu);
     }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // case 1:
             case R.id.accionVaciar:
                 borrarContenido();
                 break;
@@ -226,11 +181,11 @@ public class FicherosActivity extends AppCompatActivity {
         return true;
     }
 
-    public void borrarContenido(){
-        if (checkeado){
+    public void borrarContenido() {
+        if (checkeado) {
             Log.i("Boton check", "seleccionado Borrado SD");
             borrarContenidoSD();
-        }else{
+        } else {
             Log.i("Boton check", "seleccionado Borrado Memoria Interna");
             borrarContenidoMemInterna();
         }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sesión 4: Ficheros</string>
-
     <string name="botónAñadir">Añadir</string>
     <string name="opcionVaciar">Vaciar Fichero</string>
     <string name="hintTexto">Texto a añadir</string>
@@ -16,6 +15,4 @@
     <string name="mesajeNombreFichero">Nombre del fichero en el que se guardará la información</string>
     <string name="nombrePorDefecto">mi_fichero_miw.txt</string>
     <string name="title_activity_settings">Settings</string>
-
-
 </resources>

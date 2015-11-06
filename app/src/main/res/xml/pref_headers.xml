@@ -3,7 +3,6 @@
     <header
         android:fragment="es.upm.miw.ficheros.SettingsActivity$SettingsFragment"
         android:title="@string/actionPreferencias">
-        <!--android:summary="Preferencias Generales" >-->
         <extra
             android:name="settings"
             android:value="settings" />
@@ -12,8 +11,6 @@
         android:fragment="es.upm.miw.ficheros.SettingsActivity$SettingsFragment"
         android:summary="@string/mensajeSeccion"
         android:title="@string/nombreSeccion">
-        <!--android:summary="Datos de Almacenaje"-->
-
         <extra
             android:name="settings"
             android:value="settings_almac" />
